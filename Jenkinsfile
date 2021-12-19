@@ -8,9 +8,18 @@ pipeline {
       }
     }
 
-    stage('Mail') {
+    stage('file') {
       steps {
-        mail(subject: 'TestMail', body: 'Hi this is a test', to: 'l.pichlmeier1996@gmail.com', from: 'Laura')
+        fileExists 'gradle-wrapper.jar'
+      }
+    }
+
+    stage('build') {
+      steps {
+        withGradle() {
+          build 'build'
+        }
+
       }
     }
 
