@@ -2,20 +2,9 @@ pipeline {
   agent any
   stages {
     stage('Test1') {
-      parallel {
-        stage('Test1') {
-          steps {
-            readFile 'build.gradle'
-            echo 'Hallo'
-          }
-        }
-
-        stage('Test2') {
-          steps {
-            error 'Not working'
-          }
-        }
-
+      steps {
+        readFile 'build.gradle'
+        echo 'Hallo'
       }
     }
 
