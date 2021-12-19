@@ -1,16 +1,34 @@
 pipeline {
   agent any
   stages {
-    stage('Test1') {
-      steps {
-        readFile 'build.gradle'
-        echo 'Hallo'
+    stage('Log Tool Version') {
+      parallel {
+        stage('Log Tool Version') {
+          steps {
+            sh '''git --version
+java -version
+gradle -version'''
+          }
+        }
+
+        stage('Check for build') {
+          steps {
+            fileExists 'build.gradle'
+          }
+        }
+
       }
     }
 
-    stage('file') {
+    stage('Build with Gradle') {
       steps {
-        fileExists 'gradle-wrapper.jar'
+        sh 'gradle build'
+      }
+    }
+
+    stage('Post Build Steps') {
+      steps {
+        writeFile(file: 'status.txt', text: 'Hey, it worked!')
       }
     }
 
