@@ -5,9 +5,7 @@ pipeline {
       parallel {
         stage('Log Tool Version') {
           steps {
-            sh '''git --version
-java -version
-gradle -version'''
+            bat 'logversion.bat'
           }
         }
 
