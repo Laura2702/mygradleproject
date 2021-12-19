@@ -14,14 +14,5 @@ pipeline {
       }
     }
 
-    stage('build') {
-      steps {
-        withGradle() {
-          build 'build.gradle'
-        }
-
-      }
-    }
-
   }
 }
